@@ -37,25 +37,25 @@ $ sudo apt install build-essential git terminator
 ## Step 3: clone the repository
 ```
 $ cd ~/catkin_ws/src
-$ git clone https://github.com/CNCR-NTU/biotac_sp_ros.git
+$ git clone https://github.com/RuihanGao/BioTacSP_setup
 ```
 
 ## Step 4: install the drivers
 ```
-$ cd biotac_sp_ros
+$ cd ~/Desktop/BioTacSP_ws/src/BioTacSP_setup
 $ ./installCheetahDriver.sh
 ```
 
 ## Step 5: compile and install
 ```
-$ cd ~/catkin_ws
+$ cd ~/Desktop/BioTacSP_ws
 $ catkin_make
 $ source devel/setup.sh
 ```
 
 ## Step 6: run
 
-Run terminator
+Run terminator (in slayer conda environment, which is installed with empy, rospkg, and opencv-python)
 
 `$ roslaunch biotac_sp_ros biotac.launch`
 
