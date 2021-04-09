@@ -1,6 +1,6 @@
 # Biotac SP ROS
 
-This repository is for hosting the Biotac SP sensors sofware released under the lgpl3.0 license.
+This repository is for hosting the Biotac SP sensors sofware released under the lgpl3.0 license. This repo is originally duplicated and modified from [this repo](https://github.com/CNCR-NTU/biotac_sp_ros)
 
 # Requirements
 
