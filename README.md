@@ -101,3 +101,11 @@ Computational Neurosciences and Cognitive Robotics Group at the Nottingham Trent
 Pedro Machado <pedro.baptistamachado@ntu.ac.uk>
 
 Martin McGinnity <martin.mcginnity@ntu.ac.uk>
+
+
+# RH: steps for modified calibration & visualization
+* Connect BioTacSP & Cheetah
+* `rosrun biotac_sp_ros biotac_sp_ros_single` to convert SPI data to rostopics
+* `rosrun biotac_sp_ros BioTacSP_calibrate.py` which waits for "calibrate" signal to compute DC offsets
+* use `rostopic pub -1 /trigger_biotac_sp_calib std_msgs/String "calibrate"` to trigger caibration. The calibrated data are published in "/biotac_sp_pub_calib"
+* `rosrun biotac_sp_ros BioTacSP_viz.py`, which displays the data in a pop-up window
