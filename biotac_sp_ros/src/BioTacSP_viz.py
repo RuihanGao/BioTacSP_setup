@@ -69,10 +69,12 @@ class BioTacSPVisualizer:
         width = int(aux.shape[1]*scale_percent/100)
         height = int(aux.shape[0]*scale_percent/100)
         dim = (width, height)
-
+        #print("before resize aux {}, dim {}".format(aux.shape, dim)) #aux (11, 7), dim (280, 440)
         aux = cv2.resize(aux, dim, interpolation=cv2.INTER_AREA)
         im_color = (cv2.applyColorMap(aux, cv2.COLORMAP_HOT))
-        cv2.imshow("Sensor 0", im_color)
+        #print(im_color.shape) # (440, 280, 3)
+        #cv2.imshow("Sensor 0", im_color)
+        cv2.imshow("Sensor 0", aux)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             rospy.signal_shutdown('Quit')
