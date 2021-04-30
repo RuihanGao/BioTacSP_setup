@@ -105,11 +105,14 @@ Martin McGinnity <martin.mcginnity@ntu.ac.uk>
 
 # RH: steps for modified calibration & visualization
 * Connect BioTacSP & Cheetah
+* `roscore` to enable rosnodes
 * `rosrun biotac_sp_ros biotac_sp_ros_single` to convert SPI data to rostopics
 * `rosrun biotac_sp_ros BioTacSP_calibrate.py` which waits for "calibrate" signal to compute DC offsets
 * use `rostopic pub -1 /trigger_biotac_sp_calib std_msgs/String "calibrate"` to trigger caibration. The calibrated data are published in "/biotac_sp_pub_calib"
-* In `slayer` conda environment, `rosrun biotac_sp_ros BioTacSP_viz.py`, which displays the data in a pop-up window
-* `rosrun biotac_sp_ros BioTacSP_viz_realtime.py` to see a real-time plot for pdc data. Currently limited to 1000 timesteps and one plot. **TODO** multiple plots for pac, pdc, ele, temperature + moving time window
+* In `slayer` conda environment, you can run:
+    - `rosrun biotac_sp_ros BioTacSP_viz.py`, which displays the data in a pop-up window
+    - `rosrun biotac_sp_ros BioTacSP_viz_realtime.py` to see a real-time plot for pdc data. Currently limited to 1000 timesteps and one plot. 
+    - `rosrun biotac_sp_ros BioTacSP_viz_realtime_grid.py` **TODO** multiple plots for pac, pdc, ele, temperature + moving time window
 
 * Tips for setting up BioTac Labview visualizer on Windows, <br/>
     - Use NI Package Manager to check the versions installed on computer. Don't just delete the files in folders

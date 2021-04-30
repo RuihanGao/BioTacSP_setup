@@ -65,10 +65,9 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "biotac_sp_ros");
     ros::NodeHandle n;
     ros::Rate loop_rate(100);
-    ros::Publisher biotac_sp_pub = n.advertise<std_msgs::String>("biotac_sp_ros_single", 1000);
+    ros::Publisher biotac_sp_pub = n.advertise<std_msgs::String>("/biotac_sp_ros_single", 1000);
 
     int i;
-    int length_of_data_in_second;
     int number_of_samples;
     int number_of_loops;
 
@@ -79,14 +78,13 @@ int main(int argc, char **argv)
     /**************************************************************************/
     biotac.spi_clock_speed = BT_SPI_BITRATE_KHZ_DEFAULT;
     biotac.number_of_biotacs = 0;
-    biotac.sample_rate_Hz = BT_SAMPLE_RATE_HZ_DEFAULT;
+    biotac.sample_rate_Hz = BT_SAMPLE_RATE_HZ_DEFAULT; // 4400
     biotac.frame.frame_type = 0;
     biotac.batch.batch_frame_count = BT_FRAMES_IN_BATCH_DEFAULT;
     biotac.batch.batch_ms = BT_BATCH_MS_DEFAULT;
 
     // Set the duration of the run time
-    length_of_data_in_second = 3;
-    number_of_samples = (int)(BT_SAMPLE_RATE_HZ_DEFAULT); // * length_of_data_in_second)
+    number_of_samples = (int)(BT_SAMPLE_RATE_HZ_DEFAULT);
 
     // Check if any initial settings are wrong
     if (MAX_BIOTACS_PER_CHEETAH != 3 && MAX_BIOTACS_PER_CHEETAH != 5)
@@ -104,20 +102,18 @@ int main(int argc, char **argv)
     /*********************************************************/
     /* --- Get and print out properties of the BioTac(s) --- */
     /*********************************************************/
-    for (i = 0; i < MAX_BIOTACS_PER_CHEETAH; i++)
+    i = 0;
+    bt_err_code = bt_cheetah_get_properties(ch_handle, i + 1, &(biotac_property[i]));
+
+    if (biotac_property[i].bt_connected == YES)
     {
-        bt_err_code = bt_cheetah_get_properties(ch_handle, i + 1, &(biotac_property[i]));
+        (biotac.number_of_biotacs)++;
+    }
 
-        if (biotac_property[i].bt_connected == YES)
-        {
-            (biotac.number_of_biotacs)++;
-        }
-
-        if (bt_err_code)
-        {
-            bt_display_errors(bt_err_code);
-            exit(1);
-        }
+    if (bt_err_code)
+    {
+        bt_display_errors(bt_err_code);
+        exit(1);
     }
 
     if (biotac.number_of_biotacs == 0)
@@ -131,7 +127,7 @@ int main(int argc, char **argv)
         std::cout << "\nBioTac(s) detected:" << biotac.number_of_biotacs << ".\n\n";
     }
 
-    static int results[4][54];
+    static int results[1][54];
     static int results_vec[54];
     std::cout << "Biotac sp ROS service running... Press <ctrl> <c> to stop.\nResults are being published in topic /biotac_sp_ros.\n";
     loop_rate.sleep();
@@ -143,7 +139,6 @@ int main(int argc, char **argv)
         /*************************************/
         /* --- Configure the save buffer --- */
         /*************************************/
-        //std::cout<<"Number of samples:"<<number_of_samples<<"\n";
         data = bt_configure_save_buffer(number_of_samples);
 
         /*******************************/
@@ -176,11 +171,11 @@ int main(int argc, char **argv)
 
         memset(results_vec, 0, sizeof results_vec);
 
-        for (int k = 0; k < 4; ++k)
+        for (int k = 0; k < 1; ++k)
         {
             for (int l = 0; l < 54; ++l)
             {
-                results_vec[l] += results[k][l] / 4;
+                results_vec[l] += results[k][l] / 1;
             }
         }
 

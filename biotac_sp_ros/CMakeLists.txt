@@ -27,7 +27,7 @@ add_executable(biotac_sp_ros src/biotac.c src/cheetah.c src/biotac_sp_ros.cpp)
 target_link_libraries(biotac_sp_ros ${catkin_LIBRARIES} -ldl)
 add_dependencies(biotac_sp_ros ${PROJECT_NAME}_gencpp)
 
-add_executable(biotac_sp_ros_single src/biotac.c src/cheetah.c src/biotac_sp_ros_single)
+add_executable(biotac_sp_ros_single src/biotac.c src/cheetah.c src/biotac_sp_ros_single.cpp)
 target_link_libraries(biotac_sp_ros_single ${catkin_LIBRARIES} -ldl)
 add_dependencies(biotac_sp_ros_single ${PROJECT_NAME}_gencpp)
 

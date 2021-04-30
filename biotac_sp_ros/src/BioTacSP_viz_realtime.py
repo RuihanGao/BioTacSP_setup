@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+
 import rospy
 import os, sys
 from biotac_sp_ros.msg import BioTacSP
